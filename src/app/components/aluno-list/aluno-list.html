@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+ <div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>📚 Lista de Alunos</h2>
+    <a routerLink="/alunos/novo" class="btn btn-success btn-lg">
+      ➕ Novo Aluno
+    </a>
+  </div>
+
+  <!-- Loading -->
+  @if (carregando) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;"></div>
+      <p class="mt-2">Carregando alunos...</p>
+    </div>
+  }
+
+  <!-- Erro -->
+  @if (erro && !carregando) {
+    <div class="alert alert-danger">
+      {{ erro }}
+      <button class="btn btn-sm btn-outline-danger ms-2" (click)="carregarAlunos()">
+        Tentar Novamente
+      </button>
+    </div>
+  }
+
+  <!-- Tabela -->
+  @if (!carregando && alunos.length > 0) {
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Curso</th>
+            <th>Matrícula</th>
+            <th width="200">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (aluno of alunos; track aluno.id) {
+            <tr>
+              <td><strong>{{ aluno.id }}</strong></td>
+              <td>{{ aluno.nome }}</td>
+              <td>{{ aluno.email }}</td>
+              <td>{{ aluno.curso }}</td>
+              <td>{{ aluno.matricula }}</td>
+              <td>
+                <div class="btn-group">
+                  <a [routerLink]="['/alunos', aluno.id]"
+                     class="btn btn-sm btn-info">Ver</a>
+                  <a [routerLink]="['/alunos/editar', aluno.id]"
+                     class="btn btn-sm btn-warning">Editar</a>
+                  <button (click)="excluirAluno(aluno.id!)"
+                          class="btn btn-sm btn-danger">Excluir</button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <!-- Lista vazia -->
+  @if (!carregando && alunos.length === 0 && !erro) {
+    <div class="text-center py-5">
+      <div class="alert alert-info">
+        <h4>📝 Nenhum aluno cadastrado</h4>
+        <p>Comece cadastrando o primeiro aluno no sistema.</p>
+        <a routerLink="/alunos/novo" class="btn btn-primary">Cadastrar Primeiro Aluno</a>
+      </div>
+    </div>
+  }
+</div>
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<!-- Barra de Navegação - SÓ aparece se estiver logado -->
+@if (isAuthenticated) {
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/dashboard">
+        🏫 Sistema de Alunos
+      </a>
+
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+          📊 Dashboard
+        </a>
+        <a class="nav-link" routerLink="/alunos" routerLinkActive="active">
+          👥 Alunos
+        </a>
+        <button class="btn btn-outline-light btn-sm ms-2" (click)="logout()">
+          🚪 Sair
+        </button>
+      </div>
+    </div>
+  </nav>
+}

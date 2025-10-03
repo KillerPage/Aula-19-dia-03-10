@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<div class="container">
+  @if (carregando) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+      <p>Carregando dados do aluno...</p>
+    </div>
+  }
+
+  @if (erro && !carregando) {
+    <div class="alert alert-danger">
+      {{ erro }}
+      <a routerLink="/alunos" class="btn btn-outline-danger ms-2">Voltar</a>
+    </div>
+  }
+
+  @if (!carregando && aluno) {
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">👤 Detalhes do Aluno</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Informações Pessoais</h5>
+            <p><strong>ID:</strong> {{ aluno.id }}</p>
+            <p><strong>Nome:</strong> {{ aluno.nome }}</p>
+            <p><strong>Email:</strong> {{ aluno.email }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Informações Acadêmicas</h5>
+            <p><strong>Curso:</strong> {{ aluno.curso }}</p>
+            <p><strong>Matrícula:</strong> {{ aluno.matricula }}</p>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-top">
+          <a routerLink="/alunos" class="btn btn-secondary">← Voltar</a>
+          <a [routerLink]="['/alunos/editar', aluno.id]"
+             class="btn btn-warning ms-2">✏️ Editar</a>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+</body>
+</html>
+
+
+
